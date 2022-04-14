@@ -1,5 +1,4 @@
 use std::env::args;
-use std::io::Stdout;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -16,7 +15,7 @@ fn main() {
 
         Command::new("docker-compose")
             .args(["-p", project, "-f", config_file.to_str().unwrap(), "pull"])
-            .spawn()
+            .status()
             .unwrap();
         Command::new("docker-compose")
             .args([
@@ -27,7 +26,7 @@ fn main() {
                 "up",
                 "-d",
             ])
-            .spawn()
+            .status()
             .unwrap();
     }
 }
